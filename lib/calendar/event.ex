@@ -1,19 +1,27 @@
 defmodule GoogleCalendar.Event do
   @moduledoc """
   Interact with google events
+  Check list of optons in `https://developers.google.com/google-apps/calendar/v3/reference/events`
 
       # Access client which contains token from session if you have put it into session previously
       client = get_session(conn, "client")
 
-      # Config your event variable. Event is `Map` type
+      # Config your event variable. Event is `Map`/ `Nested Map` type
       event = %{calendar_id: "YOUR CALENDAR ID", id: "YOUR EVENT ID"}
 
       # Additional event information are included in event if you want to insert, update, or path
-      # or in query parameter to get event/ list of events
+      event = %{
+        calendar_id: "YOUR CALENDAR ID",
+        id: "YOUR EVENT ID",
+        start: %{
+          date_time: "2017-08-20T05:20:00Z",
+          timezone: "UTC"
+        }
+      }
 
-
-      # Add query parameters to opts. Opts is `Keyword` type
+      # Add query parameter to opts.Opts is `Keyword` type
       opts = opts = [params: [maxResults: 5]]
+
       GoogleCalendar.Event.get(client, event, opts)
 
       # Return result will be either `{:ok, action, result}` or `{:error, code, error_message}`

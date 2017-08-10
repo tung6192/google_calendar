@@ -1,4 +1,30 @@
 defmodule GoogleCalendar.Calendar do
+  @moduledoc """
+  Interact with google calendars
+  Check list of optons in `https://developers.google.com/google-apps/calendar/v3/reference/calendars`
+
+      # Access client which contains token from session if you have put it into session previously
+      client = get_session(conn, "client")
+
+      # Config your calenar variable. Calendar is `Map`/ `Nested Map` type
+      calendar = %{id: "YOUR CALENDAR ID"}
+
+      # Additional calendar information are included in event if you want to insert, update, or path
+      calendar = %{
+        id: "YOUR CALENDAR ID",
+        defaultReminders: %{
+          method: "YOUR METHOD"
+        }
+      }
+
+      # Add query parameter to opts.Opts is `Keyword` type
+      opts = opts = [params: [showDeleted: true]]
+
+      GoogleCalendar.Event.get(client, event, opts)
+
+      # Return result will be either `{:ok, action, result}` or `{:error, code, error_message}`
+  """
+
   import GoogleCalendar.Response
   import OAuth2.Client
 

@@ -6,8 +6,10 @@ defmodule GoogleCalendar.FreeBusy do
   @content_type Application.get_env(:google_calendar, :content_type)
 
   @doc """
+  Check list of optons in `https://developers.google.com/google-apps/calendar/v3/reference/freebusy`
+
   Example data:
-  calendar = %{
+  data = %{
     id: calendar_id,
     timeMin: "2017-08-01T00:00:00Z",
     timeMax: "2017-08-09T00:00:00Z",
