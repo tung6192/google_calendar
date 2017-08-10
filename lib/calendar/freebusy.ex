@@ -19,9 +19,11 @@ defmodule GoogleCalendar.FreeBusy do
     ]
   }
   """
-  def show(client, data) do
+  def show(client, data, opts \\ [], headers \\ []) do
+    headers = Keyword.merge(@content_type, headers)
+
     client
-    |> post!(@base_url, data, [@content_type])
+    |> post!(@base_url, data, headers, opts)
     |> show_resp("Show free time on calendar")
   end
 end

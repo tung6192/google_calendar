@@ -5,14 +5,15 @@ defmodule GoogleCalendar.Event do
       # Access client which contains token from session if you have put it into session previously
       client = get_session(conn, "client")
 
-      # Config your event variable
+      # Config your event variable. Event is `Map` type
       event = %{calendar_id: "YOUR CALENDAR ID", id: "YOUR EVENT ID"}
 
       # Additional event information are included in event if you want to insert, update, or path
       # or in query parameter to get event/ list of events
 
 
-      # Call the function
+      # Add query parameters to opts. Opts is `Keyword` type
+      opts = opts = [params: [maxResults: 5]]
       GoogleCalendar.Event.get(client, event, opts)
 
       # Return result will be either `{:ok, action, result}` or `{:error, code, error_message}`
@@ -25,6 +26,14 @@ defmodule GoogleCalendar.Event do
   @content_type Application.get_env(:google_calendar, :content_type)
 
   def list(client, %{calendar_id: calendar_id} = _event, opts \\ [], headers \\ []) do
+    path = "#{@base_url}/#{calendar_id}/events"
+
+    client
+    |> get!(path, headers, opts)
+    |> show_resp("Get event list")
+  end
+
+  def list(client, %{calendar_id: calendar_id} =_event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events"
 
     client
@@ -67,7 +76,7 @@ defmodule GoogleCalendar.Event do
     |> show_resp("Update event")
   end
 
-  def delete(client, %{calendar_id: calendar_id, id: id}, opts \\ [], headers \\ []) do
+  def delete(client, %{calendar_id: calendar_id, id: id} = _event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 
     client

@@ -5,49 +5,52 @@ defmodule GoogleCalendar.CalendarList do
   @base_url "#{Application.get_env(:google_calendar, :base_url)}/users/me/calendarList"
   @content_type Application.get_env(:google_calendar, :content_type)
 
-  def list(client) do
+  def list(client, opts \\ [], headers \\ []) do
     client
-    |> get!(@base_url)
+    |> get!(@base_url, headers, opts)
     |> show_resp("Get calendar list")
   end
 
-  def get(client, %{id: id}) do
+  def get(client, %{id: id} = _calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
 
     client
-    |> get!(path)
+    |> get!(path, headers, opts)
     |> show_resp("Get the calendar information")
   end
 
-  def insert(client, %{id: id} = calendar) do
+  def insert(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
+    headers = Keyword.merge(@content_type, headers)
 
     client
-    |> post!(path, calendar, [@content_type])
+    |> post!(path, calendar, headers, opts)
     |> show_resp("Insert calendar")
   end
 
-  def update(client, %{id: id} = calendar) do
+  def update(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
+    headers = Keyword.merge(@content_type, headers)
 
     client
-    |> put!(path, calendar, [@content_type])
+    |> put!(path, calendar, headers, opts)
     |> show_resp("Update calendar")
   end
 
-  def patch(client, %{id: id} = calendar) do
+  def patch(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
+    headers = Keyword.merge(@content_type, headers)
 
     client
-    |> patch!(path, calendar, [@content_type])
+    |> patch!(path, calendar, headers, opts)
     |> show_resp("Update calendar")
   end
 
-  def delete(client, %{id: id}) do
+  def delete(client, %{id: id} = _calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
 
     client
-    |> delete!(path)
+    |> delete!(path, "", headers, opts)
     |> show_resp("Delete calendar")
   end
 end
