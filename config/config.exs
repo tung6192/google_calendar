@@ -28,3 +28,6 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :google_calendar, :base_url, "https://www.googleapis.com/calendar/v3"
+config :google_calendar, :content_type, {"content-type", "application/json"}

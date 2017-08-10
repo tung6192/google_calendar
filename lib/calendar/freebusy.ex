@@ -2,8 +2,8 @@ defmodule GoogleCalendar.FreeBusy do
   import GoogleCalendar.Response
   import OAuth2.Client
 
-  @base_url "#{Application.get_env(:oauth2_example, :base_url)}/freeBusy"
-  @content_type Application.get_env(:oauth2_example, :content_type)
+  @base_url "#{Application.get_env(:google_calendar, :base_url)}/freeBusy"
+  @content_type Application.get_env(:google_calendar, :content_type)
 
   @doc """
   Example data:

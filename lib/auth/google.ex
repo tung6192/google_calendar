@@ -16,7 +16,7 @@ defmodule Google do
   # Public API
 
   def client do
-    Application.get_env(:oauth2_example, Google)
+    Application.get_env(:google_calendar, Google)
     |> Keyword.merge(config())
     |> OAuth2.Client.new()
   end
@@ -27,7 +27,7 @@ defmodule Google do
 
   def get_token!(params \\ [], headers \\ []) do
     params =
-      Application.get_env(:oauth2_example, Google)
+      Application.get_env(:google_calendar, Google)
       |> Keyword.merge(params)
 
     OAuth2.Client.get_token!(client(), params)
