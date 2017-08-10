@@ -1,11 +1,8 @@
 defmodule GoogleCalendar.Auth do
 
-  def authorize_url!(),   do: Google.authorize_url!([
-    scope: "https://www.googleapis.com/auth/calendar",
-    access_type: "offline",
-  ])
+  def authorize_url!(),   do: Google.authorize_url!()
 
-  def get_token!(code),   do: Google.get_token!([code: code, response_type: nil])
+  def get_token!(code),   do: Google.get_token!(code: code)
 
   @doc """
   This action is reached via `/auth/callback` is the the callback URL that

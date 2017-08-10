@@ -30,4 +30,4 @@ use Mix.Config
 #     import_config "#{Mix.env}.exs"
 
 config :google_calendar, :base_url, "https://www.googleapis.com/calendar/v3"
-config :google_calendar, :content_type, {"content-type", "application/json"}
+config :google_calendar, :content_type, [{"content-type", "application/json"}]

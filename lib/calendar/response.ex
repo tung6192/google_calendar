@@ -7,7 +7,7 @@ defmodule GoogleCalendar.Response do
       code when code in 400..599 ->
         {:error, code, resp.body["error"]["message"]}
       code ->
-        {:unknown, code, "Unhandled code, #{resp.body}"}
+        {:error, code, "Unhandled code, #{resp.body}"}
     end
   end
 end

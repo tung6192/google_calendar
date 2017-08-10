@@ -22,13 +22,22 @@ defmodule Google do
   end
 
   def authorize_url!(params \\ []) do
+    # Enable refresh token automatically & set up calendar authorization
+    default_config = [
+      scope: "https://www.googleapis.com/auth/calendar",
+      access_type: "offline",
+    ]
+    params = Keyword.merge(default_config, params)
+
     OAuth2.Client.authorize_url!(client(), params)
   end
 
   def get_token!(params \\ [], headers \\ []) do
     params =
-      Application.get_env(:google_calendar, Google)
+      :google_calendar
+      |> Application.get_env(Google)
       |> Keyword.merge(params)
+      |> Keyword.put(:response_type, nil)
 
     OAuth2.Client.get_token!(client(), params)
   end
