@@ -17,8 +17,11 @@ defmodule GoogleCalendar do
         client_secret: GOOGLE_CLIENT_SECRET,
         redirect_uri: "https://your_site.com/auth/callback"
 
-  ### Call back function in auth_controller
+  ### Auth_controller
+      # To retrieve authorize_url, call function
+      Google.authorize_url!()
 
+      # Call back function
       def callback(conn, %{"code" => code}) do
         # Exchange an auth code for an access token
         client = Google.get_token!(code: code)

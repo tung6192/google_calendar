@@ -7,6 +7,8 @@ defmodule GoogleCalendar.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: "A simple wrapper for Google Calendar API",
+     package: package,
      deps: deps()]
   end
 
@@ -29,5 +31,14 @@ defmodule GoogleCalendar.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:oauth2, "~> 0.9"}]
+  end
+
+  def package do
+    [ name: :google_calendar,
+      files: ["lib", "mix.exs"],
+      maintainers: ["dinhtungtp"],
+      licenses: ["Framgia Vietnam"],
+      links: %{"Github" => "https://github.com/tung6192/google_calendar"}
+    ]
   end
 end
