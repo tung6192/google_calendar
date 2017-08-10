@@ -41,14 +41,6 @@ defmodule GoogleCalendar.Event do
     |> show_resp("Get event list")
   end
 
-  def list(client, %{calendar_id: calendar_id} =_event, opts \\ [], headers \\ []) do
-    path = "#{@base_url}/#{calendar_id}/events"
-
-    client
-    |> get!(path, headers, opts)
-    |> show_resp("Get event list")
-  end
-
   def get(client, %{calendar_id: calendar_id, id: id} = _event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 

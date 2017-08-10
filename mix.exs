@@ -8,7 +8,7 @@ defmodule GoogleCalendar.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: "A simple wrapper for Google Calendar API",
-     package: package,
+     package: package(),
      deps: deps()]
   end
 

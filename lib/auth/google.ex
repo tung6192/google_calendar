@@ -32,7 +32,7 @@ defmodule Google do
     OAuth2.Client.authorize_url!(client(), params)
   end
 
-  def get_token!(params \\ [], headers \\ []) do
+  def get_token!(params \\ []) do
     params =
       :google_calendar
       |> Application.get_env(Google)
