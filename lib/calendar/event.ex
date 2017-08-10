@@ -1,6 +1,7 @@
 defmodule GoogleCalendar.Event do
   @moduledoc """
   Interact with google events
+
   Check list of optons in `https://developers.google.com/google-apps/calendar/v3/reference/events`
 
       # Access client which contains token from session if you have put it into session previously
@@ -20,7 +21,7 @@ defmodule GoogleCalendar.Event do
       }
 
       # Add query parameter to opts.Opts is `Keyword` type
-      opts = opts = [params: [maxResults: 5]]
+      opts = [params: [maxResults: 5]]
 
       GoogleCalendar.Event.get(client, event, opts)
 

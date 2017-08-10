@@ -3,9 +3,11 @@ defmodule GoogleCalendar do
   ### Google Calendar API
 
   Interact with Google `CalendarList`, `Calendar` and `Event`
+
   Main function includes `get list`, `get instance`, `insert`, `update`, and `delete`
 
   To access the authorize url, use `redirect conn, external: Google.authorize_url!()`
+
   To retrieve token, define route and callback uri in google oauth redirect uri `/auth/callback`
 
   ### Configuration

@@ -1,6 +1,7 @@
 defmodule GoogleCalendar.CalendarList do
   @moduledoc """
   Interact with google calendar list
+
   Check list of options in `https://developers.google.com/google-apps/calendar/v3/reference/calendarList`
 
       # Access client which contains token from session if you have put it into session previously
@@ -18,7 +19,7 @@ defmodule GoogleCalendar.CalendarList do
       }
 
       # Add query parameter to opts.Opts is `Keyword` type
-      opts = opts = [params: [showDeleted: true]]
+      opts = [params: [showDeleted: true]]
 
       GoogleCalendar.Event.get(client, event, opts)
 

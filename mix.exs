@@ -30,7 +30,9 @@ defmodule GoogleCalendar.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:oauth2, "~> 0.9"}]
+    [{:oauth2, "~> 0.9"},
+     {:earmark, ">= 0.0.0", only: :dev},
+     {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
   def package do
