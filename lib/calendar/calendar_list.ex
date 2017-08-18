@@ -27,14 +27,13 @@ defmodule GoogleCalendar.CalendarList do
   """
 
   import GoogleCalendar.Response
-  import OAuth2.Client
 
   @base_url "#{Application.get_env(:google_calendar, :base_url)}/users/me/calendarList"
   @content_type Application.get_env(:google_calendar, :content_type)
 
   def list(client, opts \\ [], headers \\ []) do
     client
-    |> get!(@base_url, headers, opts)
+    |> OAuth2.Client.get(@base_url, headers, opts)
     |> show_resp("Get calendar list")
   end
 
@@ -42,7 +41,7 @@ defmodule GoogleCalendar.CalendarList do
     path = "#{@base_url}/#{id}"
 
     client
-    |> get!(path, headers, opts)
+    |> OAuth2.Client.get(path, headers, opts)
     |> show_resp("Get the calendar information")
   end
 
@@ -51,7 +50,7 @@ defmodule GoogleCalendar.CalendarList do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> post!(path, calendar, headers, opts)
+    |> OAuth2.Client.post(path, calendar, headers, opts)
     |> show_resp("Insert calendar")
   end
 
@@ -60,7 +59,7 @@ defmodule GoogleCalendar.CalendarList do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> put!(path, calendar, headers, opts)
+    |> OAuth2.Client.put(path, calendar, headers, opts)
     |> show_resp("Update calendar")
   end
 
@@ -69,7 +68,7 @@ defmodule GoogleCalendar.CalendarList do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> patch!(path, calendar, headers, opts)
+    |> OAuth2.Client.patch(path, calendar, headers, opts)
     |> show_resp("Update calendar")
   end
 
@@ -77,7 +76,7 @@ defmodule GoogleCalendar.CalendarList do
     path = "#{@base_url}/#{id}"
 
     client
-    |> delete!(path, "", headers, opts)
+    |> OAuth2.Client.delete(path, "", headers, opts)
     |> show_resp("Delete calendar")
   end
 end

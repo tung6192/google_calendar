@@ -25,7 +25,7 @@ defmodule GoogleCalendar.FreeBusy do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> post!(@base_url, data, headers, opts)
+    |> OAuth2.Client.post(@base_url, data, headers, opts)
     |> show_resp("Show free time on calendar")
   end
 end

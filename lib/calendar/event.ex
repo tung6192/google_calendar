@@ -29,7 +29,7 @@ defmodule GoogleCalendar.Event do
   """
 
   import GoogleCalendar.Response
-  import OAuth2.Client
+  OAuth2.Client
 
   @base_url "#{Application.get_env(:google_calendar, :base_url)}/calendars"
   @content_type Application.get_env(:google_calendar, :content_type)
@@ -38,7 +38,7 @@ defmodule GoogleCalendar.Event do
     path = "#{@base_url}/#{calendar_id}/events"
 
     client
-    |> get!(path, headers, opts)
+    |> OAuth2.Client.get(path, headers, opts)
     |> show_resp("Get event list")
   end
 
@@ -46,7 +46,7 @@ defmodule GoogleCalendar.Event do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 
     client
-    |> get!(path, headers, opts)
+    |> OAuth2.Client.get(path, headers, opts)
     |> show_resp("Get event information")
   end
 
@@ -55,7 +55,7 @@ defmodule GoogleCalendar.Event do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> post!(path, event, headers, opts)
+    |> OAuth2.Client.post(path, event, headers, opts)
     |> show_resp("Insert event")
   end
 
@@ -64,7 +64,7 @@ defmodule GoogleCalendar.Event do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> put!(path, event, headers, opts)
+    |> OAuth2.Client.put(path, event, headers, opts)
     |> show_resp("Update event")
   end
 
@@ -73,7 +73,7 @@ defmodule GoogleCalendar.Event do
     headers = Keyword.merge(@content_type, headers)
 
     client
-    |> patch!(path, event, headers, opts)
+    |> OAuth2.Client.patch(path, event, headers, opts)
     |> show_resp("Update event")
   end
 
@@ -81,7 +81,7 @@ defmodule GoogleCalendar.Event do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 
     client
-    |> delete!(path, "", headers, opts)
+    |> OAuth2.Client.delete(path, "", headers, opts)
     |> show_resp("Delete event")
   end
 end
