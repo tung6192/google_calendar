@@ -1,6 +1,5 @@
 defmodule GoogleCalendar.FreeBusy do
   import GoogleCalendar.Response
-  import OAuth2.Client
 
   @base_url "#{Application.get_env(:google_calendar, :base_url)}/freeBusy"
   @content_type Application.get_env(:google_calendar, :content_type)
@@ -22,7 +21,7 @@ defmodule GoogleCalendar.FreeBusy do
       }
   """
   def show(client, data, opts \\ [], headers \\ []) do
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.post(@base_url, data, headers, opts)

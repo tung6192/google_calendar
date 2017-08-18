@@ -52,7 +52,7 @@ defmodule GoogleCalendar.Event do
 
   def insert(client, %{calendar_id: calendar_id} = event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.post(path, event, headers, opts)
@@ -61,7 +61,7 @@ defmodule GoogleCalendar.Event do
 
   def update(client, %{calendar_id: calendar_id, id: id} = event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.put(path, event, headers, opts)
@@ -70,7 +70,7 @@ defmodule GoogleCalendar.Event do
 
   def patch(client, %{calendar_id: calendar_id, id: id} = event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.patch(path, event, headers, opts)

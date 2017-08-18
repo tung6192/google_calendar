@@ -41,7 +41,7 @@ defmodule GoogleCalendar.Calendar do
 
   def insert(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.post(path, calendar, headers, opts)
@@ -50,7 +50,7 @@ defmodule GoogleCalendar.Calendar do
 
   def update(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.put(path, calendar, headers, opts)
@@ -59,7 +59,7 @@ defmodule GoogleCalendar.Calendar do
 
   def patch(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.patch(path, calendar, headers, opts)
@@ -79,7 +79,7 @@ defmodule GoogleCalendar.Calendar do
   """
   def clear(client, %{id: id} = calendar, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{id}/clear"
-    headers = Keyword.merge(@content_type, headers)
+    headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.post(path, calendar, headers, opts)
