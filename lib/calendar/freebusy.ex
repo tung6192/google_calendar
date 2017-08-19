@@ -19,12 +19,22 @@ defmodule GoogleCalendar.FreeBusy do
           }
         ]
       }
+
+  `Function!/n` is similar to `Function/n` but raises error if an error occurs during the request
   """
+
   def show(client, data, opts \\ [], headers \\ []) do
     headers = headers ++ @content_type
 
     client
     |> OAuth2.Client.post(@base_url, data, headers, opts)
     |> show_resp("Show free time on calendar")
+  end
+
+  def show!(client, data, opts \\ [], headers \\ []) do
+    case show(client, data, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
   end
 end

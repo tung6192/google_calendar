@@ -34,6 +34,10 @@ defmodule GoogleCalendar.Event do
   @base_url "#{Application.get_env(:google_calendar, :base_url)}/calendars"
   @content_type Application.get_env(:google_calendar, :content_type)
 
+  @doc """
+  `Function!/n` is similar to `Function/n` but raises error if an error occurs during the request
+  """
+
   def list(client, %{calendar_id: calendar_id} = _event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events"
 
@@ -42,12 +46,26 @@ defmodule GoogleCalendar.Event do
     |> show_resp("Get event list")
   end
 
+  def list!(client, event, opts \\ [], headers \\ []) do
+    case list(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
+  end
+
   def get(client, %{calendar_id: calendar_id, id: id} = _event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 
     client
     |> OAuth2.Client.get(path, headers, opts)
     |> show_resp("Get event information")
+  end
+
+  def get!(client, event, opts \\ [], headers \\ []) do
+    case get(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
   end
 
   def insert(client, %{calendar_id: calendar_id} = event, opts \\ [], headers \\ []) do
@@ -59,6 +77,13 @@ defmodule GoogleCalendar.Event do
     |> show_resp("Insert event")
   end
 
+  def insert!(client, event, opts \\ [], headers \\ []) do
+    case insert(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
+  end
+
   def update(client, %{calendar_id: calendar_id, id: id} = event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
     headers = headers ++ @content_type
@@ -66,6 +91,13 @@ defmodule GoogleCalendar.Event do
     client
     |> OAuth2.Client.put(path, event, headers, opts)
     |> show_resp("Update event")
+  end
+
+  def update!(client, event, opts \\ [], headers \\ []) do
+    case update(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
   end
 
   def patch(client, %{calendar_id: calendar_id, id: id} = event, opts \\ [], headers \\ []) do
@@ -77,11 +109,25 @@ defmodule GoogleCalendar.Event do
     |> show_resp("Update event")
   end
 
+  def patch!(client, event, opts \\ [], headers \\ []) do
+    case patch(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
+  end
+
   def delete(client, %{calendar_id: calendar_id, id: id} = _event, opts \\ [], headers \\ []) do
     path = "#{@base_url}/#{calendar_id}/events/#{id}"
 
     client
     |> OAuth2.Client.delete(path, "", headers, opts)
     |> show_resp("Delete event")
+  end
+
+  def delete!(client, event, opts \\ [], headers \\ []) do
+    case delete(client, event, opts, headers) do
+      {:ok, action, _resp} -> action
+      {:error, code, message} -> raise "#{code} - #{message}"
+    end
   end
 end
