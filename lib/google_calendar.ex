@@ -30,10 +30,24 @@ defmodule GoogleCalendar do
         # Exchange an auth code for an access token
         client = Google.get_token!(code: code)
 
-        # You might want to put that client in session for latter and redirect url
+        # You might want to put access_token in session for latter use and redirect url
         conn
-        |> put_session(:client, client)
+        |> put_session(:token, client.token)
         |> redirect(to: "/")
+      end
+
+      # To recreate client
+      token = get_session(conn, :token)
+      client = Map.merge(Google.client(), %{token: token})
+
+      # To refresh token, save your refresh token in database
+      token = get_session(conn, :token)
+      if OAuth2.AccessToken.expired?(token) do
+        token = Map.merge(token, %{refresh_token: REFRESH_TOKEN})
+
+        Google.client()
+        |> Map.merge(%{token: token})
+        |> OAuth2.Client.refresh_token!()
       end
 
   """
