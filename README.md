@@ -27,7 +27,9 @@ To retrieve token, define route and callback uri in google oauth redirect uri `/
 ### Configuration
 
 Add the following configuration in your *.exs
+
     config :google_calendar, :base_url, "https://www.googleapis.com/calendar/v3"
+
     config :google_calendar, :content_type, [{"content-type", "application/json"}]
 
     config :google_calendar, Google,
